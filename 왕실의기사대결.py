@@ -59,15 +59,9 @@ def initialize():
         start_r, start_c = gisa[0], gisa[1]
         
         x_len, y_len = gisa[2], gisa[3]
-        if x_len == 1:
-            x_candidates = [start_r]
-        else:
-            x_candidates = list(range(start_r, start_r + x_len))
-
-        if y_len == 1:
-            y_candidates = [start_c]
-        else:
-            y_candidates = list(range(start_c, start_c + y_len))
+        
+        x_candidates = list(range(start_r, start_r + x_len))
+        y_candidates = list(range(start_c, start_c + y_len))
 
         for x in x_candidates:
             for y in y_candidates:
@@ -150,6 +144,17 @@ def start_actual_move(movable_idx_list, direction):
 
     global GISA_INFO_BOARD, GISA_FULL_COORDINATE, DAMAGE_DICT, GISA_BEING_ALIVE, GISA_STAMINA
 
+    # GISA_INFO_BOARD_CP = [
+    #     [0] * L for _ in range(L)
+    # ]
+    # for i in range(L):
+    #     for j in range(L):
+    #         GISA_INFO_BOARD_CP[i][j] = GISA_INFO_BOARD[i][j]
+    # for mvi in movable_idx_list:
+    #     coord_list = GISA_FULL_COORDINATE[mvi]
+    #     for coord_x, coord_y in coord_list:
+    #         GISA_INFO_BOARD_CP[coord_x][coord_y] = 0
+
     dx, dy = MOVEMENT[direction]
     stamina_minus = defaultdict(int)
 
@@ -158,6 +163,7 @@ def start_actual_move(movable_idx_list, direction):
         for coord_x, coord_y in coord_list:
             next_x, next_y = coord_x + dx, coord_y + dy
             value = BOARD[next_x][next_y]
+            # GISA_INFO_BOARD_CP[next_x][next_y] = mvi 
             if mvi == movable_idx_list[0]:  # 나 자신의 경우에는 움직여도 스태미너 안 까임 
                 stamina_minus[mvi] += 0
                 break
@@ -193,6 +199,9 @@ def start_actual_move(movable_idx_list, direction):
         if key != movable_idx_list[0]:
             GISA_STAMINA[key] -= value
             if GISA_STAMINA[key] <= 0:
+                # for coord_x, coord_y in GISA_FULL_COORDINATE[key]:
+                #     next_x, next_y = coord_x + dx, coord_y + dy
+                #     GISA_INFO_BOARD_CP[next_x][next_y] = 0
                 GISA_BEING_ALIVE.remove(key)
                 del GISA_STAMINA[key]
                 del GISA_FULL_COORDINATE[key]
@@ -201,6 +210,8 @@ def start_actual_move(movable_idx_list, direction):
             GISA_FULL_COORDINATE[key] = list(map(lambda v: [v[0] + dx, v[1] + dy], GISA_FULL_COORDINATE[key]))   
         except:
             continue
+
+    # GISA_INFO_BOARD = GISA_INFO_BOARD_CP
 
 
 #%%
