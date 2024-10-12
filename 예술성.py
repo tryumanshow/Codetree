@@ -1,29 +1,9 @@
 from collections import defaultdict
 
-# n = int(input().strip())
-#
-# grid = [
-#     [int(x) for x in input().strip().split(' ')] for _ in range(n)
-# ]
+n = int(input().strip())
 
-n = 16
 grid = [
-    [100, 4, 6, 1, 2, 2, 2, 1, 4],
-    [200, 2, 4],
-    [300, 2, 4],
-    [400, 4, 2],
-    [500, 6],
-    [500, 5],
-    [600, 1],
-    [600, 3],
-    [200, 4, 1],
-    [200, 1, 2],
-    [300, 1, 3],
-    [300, 2, 3],
-    [500, 2],
-    [500, 3],
-    [600, 2],
-    [600, 3]
+    [int(x) for x in input().strip().split(' ')] for _ in range(n)
 ]
 
 grid_temp = [
