@@ -13,7 +13,7 @@ store_position = [
 
 base_position = []
 base_cnt = 0
-visited_base_cnt = 0
+visited_store_cnt = 0
 
 for i in range(n):
     for j in range(n):
@@ -86,7 +86,7 @@ def stage1():
 
 
 def stage2():
-    global people_in_grid, is_visited, visited_base_cnt
+    global people_in_grid, is_visited, visited_store_cnt
 
     temp_grid = dict()
 
@@ -95,7 +95,7 @@ def stage2():
         x, y = value
         if value == dest:
             is_visited[x][y] = True
-            visited_base_cnt += 1
+            visited_store_cnt += 1
             continue
         temp_grid[key] = value
 
@@ -127,7 +127,7 @@ def stage3(time):
 
 
 time = 0
-while visited_base_cnt != len(store_position):
+while visited_store_cnt != len(store_position):
 
     time += 1
 
